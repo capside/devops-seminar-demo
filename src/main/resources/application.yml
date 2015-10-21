@@ -1,0 +1,35 @@
+logging:
+  level: 
+    org.hibernate : WARN
+    org.spring : WARN
+        
+#server.port=0 para que elija autom\u00e1ticamente un puerto libre
+server:
+  port: 8000
+  address: 0.0.0.0
+  contextPath: ""
+  tomcat:
+    remote_ip_header: x-forwarded-for
+    protocol_header: x-forwarded-proto
+  
+endpoints:
+    sensitive: false
+    shutdown:
+        #curl -k -u admin:adminadmin -X POST https://localhost:8000/shutdown
+        enabled : true
+    
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/football
+    username: root
+    password: bragasdeesparto
+  jpa:
+    hibernate:
+        ddl-auto: none
+        naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    show-sql: true        
+
+
+application:    
+    identification: demo
