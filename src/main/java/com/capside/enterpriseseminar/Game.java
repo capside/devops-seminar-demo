@@ -20,6 +20,7 @@ public class Game implements Serializable {
     private int id;
     private String home;
     private String visitor;
+    @Column(name="theyear")
     private int year;
     @Column(name="scorehome")
     private int scoreHome;

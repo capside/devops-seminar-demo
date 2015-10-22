@@ -5,7 +5,7 @@
 
     <groupId>com.capside.enterpriseseminar</groupId>
     <artifactId>demo</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4</version>
     <packaging>jar</packaging>
 
     <name>demo</name>
@@ -50,12 +50,18 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-                
+           
+                     
+        <!--
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-                
+        -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+        </dependency>
     </dependencies>
 	
     <dependencyManagement>
