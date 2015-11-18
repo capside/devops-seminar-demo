@@ -35,3 +35,14 @@ spring:
 
 application:    
     identification: demo
+
+---
+
+spring:
+    profiles: production
+    datasource:
+        driverClassName: com.mysql.jdbc.Driver
+
+    
+    
+    

@@ -10,9 +10,10 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import lombok.Cleanup;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.stereotype.Component;
 
@@ -22,12 +23,20 @@ import org.springframework.stereotype.Component;
  */
 @Log
 @Component
+@Profile(value="dev")
 public class DBInit implements ApplicationListener<ContextRefreshedEvent> {
 
+    @Value("${spring.datasource.url}")
+    private String jdbcUrl;
+    
+    @Value("${spring.datasource.username}")
+    private String username;
+    
+    
     public void execute() {
         try {
             log.info("Opening connection to the database.");
-            @Cleanup Connection con = DriverManager.getConnection("jdbc:derby:memory:football;create=true", "ROOT", "");
+            @Cleanup Connection con = DriverManager.getConnection(jdbcUrl, username, "");
             @Cleanup BufferedReader in = new BufferedReader(
                             new InputStreamReader(
                                     DBInit.class.getClassLoader().getResourceAsStream("fbgames.sql")));

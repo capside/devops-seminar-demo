@@ -5,7 +5,7 @@
 
     <groupId>com.capside.enterpriseseminar</groupId>
     <artifactId>demo</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
 
     <name>demo</name>
@@ -52,12 +52,11 @@
         </dependency>
            
                      
-        <!--
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        -->
+        
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
