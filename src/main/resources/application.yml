@@ -22,8 +22,6 @@ spring:
   datasource:
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
     url: jdbc:derby:memory:football;create=true
-    #driverClassName: com.mysql.jdbc.Driver
-    #url: jdbc:mysql://localhost:3306/football
     username: root
     password: bragasdeesparto
   jpa:
