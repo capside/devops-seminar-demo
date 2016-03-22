@@ -24,7 +24,7 @@ spring:
     url: jdbc:derby:memory:football;create=true
     #driverClassName: com.mysql.jdbc.Driver
     #url: jdbc:mysql://localhost:3306/football
-    username: root
+    username: APP
     password: bragasdeesparto
   jpa:
     hibernate:
