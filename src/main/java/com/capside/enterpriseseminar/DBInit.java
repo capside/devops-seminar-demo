@@ -44,8 +44,10 @@ public class DBInit implements ApplicationListener<ContextRefreshedEvent> {
             log.info("Loading data into local database.");
             String line;
             while ((line = in.readLine()) != null) {
-                log.log(Level.FINE, "Executing line {0}", line);
-                stmt.executeUpdate(line);
+                if (line.startsWith("#") == false) {
+                    log.log(Level.FINE, "Executing line {0}", line);
+                    stmt.executeUpdate(line);
+                }
             }
             log.info("Database initialized successfully.");
         } catch (SQLException | IOException exc) {
