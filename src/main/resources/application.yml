@@ -19,6 +19,8 @@ endpoints:
         enabled : true
     
 spring:
+  profiles:
+    default: embedded
   datasource:
     driverClassName: org.apache.derby.jdbc.EmbeddedDriver
     url: jdbc:derby:memory:football;create=true
