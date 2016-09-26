@@ -33,6 +33,14 @@ public class DBInit implements ApplicationListener<ContextRefreshedEvent> {
     
     
     public void execute() {
+        try  {
+            @Cleanup Connection con = DriverManager.getConnection(jdbcUrl, username, "");
+            @Cleanup Statement stmt = con.createStatement();
+            stmt.executeQuery("SELECT * FROM games");
+            return; // Tables alreade exists.
+        } catch (SQLException e) {
+            // Games does not exists. Init database.
+        }
         try {
             log.info("Opening connection to the database.");
             @Cleanup Connection con = DriverManager.getConnection(jdbcUrl, username, "");
