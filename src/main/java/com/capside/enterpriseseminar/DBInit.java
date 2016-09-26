@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Log
 @Component
-@Profile(value="dev")
+@Profile(value="embedded")
 public class DBInit implements ApplicationListener<ContextRefreshedEvent> {
 
     @Value("${spring.datasource.url}")
