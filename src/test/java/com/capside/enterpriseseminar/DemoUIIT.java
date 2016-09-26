@@ -1,25 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.capside.enterpriseseminar;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.mockito.BDDMockito.given;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -30,49 +26,43 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("dev")   // Beware: this profile will use a local database
-public class DemoAPIIT {
+public class DemoUIIT {
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+    @Value("${local.server.port}")
+    private int port;
+    
+    private WebDriver driver;
+    private Wait<WebDriver> wait;
 
-    @Autowired
-    private ObjectMapper mapper;
-    
-    
-    public DemoAPIIT() {
+    @Before
+    public void setup() {
+        driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, 30);
     }
-    
+
+    @After
+    public void tearDown() {
+        driver.quit();
+    }
+
     @Test
-    public void testGetStatisticsWithDTO() {
-        final String localTeamName = "R. Madrid";
-        final String visitorTeamName = "Barcelona";
-        ResponseEntity<ApiCtrl.StatisticsDTO> response = 
-                restTemplate.exchange("/games/stats/{firstTeam:.*}-vs-{secondTeam:.*}",
-                        HttpMethod.GET, null, ApiCtrl.StatisticsDTO.class, localTeamName, visitorTeamName);
+    public void performSearch() throws IOException {
+        final String firstTeamName = "R. Madrid";
+        final String secondTeamName = "Barcelona";
         
-        assertEquals("Invocation was a success.", HttpStatus.OK, response.getStatusCode());
-        assertEquals("Local team", localTeamName, response.getBody().getStatistics().getFirstTeam());
-        assertEquals("Visitor team", visitorTeamName, response.getBody().getStatistics().getSecondTeam());
-   }
+        driver.get("http://localhost:" + port);
 
-    @Test
-    public void testGetStatisticsWithJSON() throws IOException {
-        final String localTeamName = "R. Madrid";
-        final String visitorTeamName = "Barcelona";
-        ResponseEntity<String> response = 
-                restTemplate.exchange("/games/stats/{firstTeam:.*}-vs-{secondTeam:.*}",
-                        HttpMethod.GET, null, String.class, localTeamName, visitorTeamName);
-        JsonNode json = mapper.readTree(response.getBody());
-        assertEquals("Invocation was a success.", HttpStatus.OK, response.getStatusCode());
-        assertEquals("Local team", localTeamName, json.findValue("statistics").findValue("firstTeam").asText());
-        assertEquals("Visitor team", visitorTeamName, json.findValue("statistics").findValue("secondTeam").asText());
-   }
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.findElement(By.id("firstTeamInput")).sendKeys(firstTeamName);
+        driver.findElement(By.id("secondTeamInput")).sendKeys(secondTeamName);
+        driver.findElement(By.id("queryCommand")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("results-data")));
+        
+        String firstTeamWins = driver.findElement(By.id("firstTeamWins")).getText();
+        String secondTeamWins = driver.findElement(By.id("secondTeamWins")).getText();
+        
+        assertEquals("First team wins one match.", "1", firstTeamWins);
+        assertEquals("Second team wins one match.", "1", secondTeamWins);
+    }
 
-    
-    
-    
-    
-    
-    
-    
 }

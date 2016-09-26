@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.capside.enterpriseseminar;
 
 import java.util.Arrays;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +14,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.Assert.assertEquals;
 
 /**
  *
@@ -27,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class DemoAPIWithMockService {
+public class DemoAPIWithMockServiceIT {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -36,7 +31,7 @@ public class DemoAPIWithMockService {
     private StatisticsService statisticsService;
     
     
-    public DemoAPIWithMockService() {
+    public DemoAPIWithMockServiceIT() {
     }
     
     @Before
