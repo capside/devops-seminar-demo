@@ -1,13 +1,15 @@
 package com.capside.enterpriseseminar;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author ciberado
  */
-@Data
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Statistics {
     private String firstTeam;
     private int firstTeamWins;
