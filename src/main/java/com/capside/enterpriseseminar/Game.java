@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -14,7 +16,7 @@ import lombok.Data;
  */
 @Entity 
 @Table(name = "games")
-@Data 
+@Data @AllArgsConstructor @NoArgsConstructor
 public class Game implements Serializable {
     @Id @GeneratedValue
     private int id;
@@ -26,19 +28,5 @@ public class Game implements Serializable {
     private int scoreHome;
     @Column(name="scorevisitor")
     private int scoreVisitor;
-
-    public Game() {
-    }
-
-    public Game(int id, String home, String visitor, int year, int scoreHome, int scoreVisitor) {
-        this.id = id;
-        this.home = home;
-        this.visitor = visitor;
-        this.year = year;
-        this.scoreHome = scoreHome;
-        this.scoreVisitor = scoreVisitor;
-    }
-    
-    
     
 }

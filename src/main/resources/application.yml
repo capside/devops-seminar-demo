@@ -31,19 +31,16 @@ spring:
     show-sql: true        
 
 
-application:    
-    identification: demo
-
 ---
 
 spring:
     profiles: production
     datasource:
         driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://db:3306/football
+        username: root
+        password: bragasdeesparto
     jpa:
         properties:
             hibernate:
                 dialect : org.hibernate.dialect.MySQL5Dialect
-    
-    
-    
