@@ -12,7 +12,6 @@ import lombok.Cleanup;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.stereotype.Component;
@@ -23,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Log
 @Component
-@Profile(value="dev")
+// @Profile(value="dev")
 public class DBInit implements ApplicationListener<ContextRefreshedEvent> {
 
     @Value("${spring.datasource.url}")
